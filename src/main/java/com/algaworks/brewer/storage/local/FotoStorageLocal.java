@@ -25,7 +25,8 @@ public class FotoStorageLocal implements FotoStorage {
 		// this.local = getDefault().getPath(System.getenv("HOME"), ".brewerfotos");
 
 		// Windows
-		// this.local = getDefault().getPath(System.getProperty("user.home"), ".brewerfotos");
+		// this.local = getDefault().getPath(System.getProperty("user.home"),
+		// ".brewerfotos");
 
 		this.local = getDefault().getPath("C:\\Users\\oliveirb\\Downloads\\curso-spring", "brewerfotos");
 		criarPastas();
@@ -66,6 +67,15 @@ public class FotoStorageLocal implements FotoStorage {
 		return novoNome;
 	}
 
+	@Override
+	public void salvar(String foto) {
+		try {
+			Files.move(this.localTemporario.resolve(foto), this.local.resolve(foto));
+		} catch (IOException e) {
+			throw new RuntimeException("Erro movendo a foto para destino final", e);
+		}
+	}
+
 	private String renomearArquivo(String nomeOriginal) {
 		String novoNome = UUID.randomUUID().toString() + "_" + nomeOriginal;
 
@@ -84,5 +94,4 @@ public class FotoStorageLocal implements FotoStorage {
 			throw new RuntimeException("Erro lendo a foto temporária", e);
 		}
 	}
-
 }
