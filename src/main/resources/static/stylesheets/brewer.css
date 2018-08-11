@@ -59,7 +59,6 @@
 }
 
 /* Tabela simples */
-
 .bw-tabela-simples {
 	margin-top: 15px;
 }
@@ -81,6 +80,11 @@
 ###################
 */
 
+/* Colunas comuns */
+.table-col-acoes {
+	width: 80px;
+}
+
 /* Colunas - Pesquisa de Cervejas */
 .table-cervejas-col-foto {
 	min-width: 50px;
@@ -94,6 +98,7 @@
 
 .table-cervejas-col-nome {
 	/* nome */
+	
 }
 
 .table-cervejas-col-estilo {
@@ -109,6 +114,7 @@
 	text-align: right;
 }
 
-.table-cervejas-col-acoes {
+/* Colunas - Pesquisa de Estilos */
+.table-estilos-col-codigo {
 	width: 80px;
 }

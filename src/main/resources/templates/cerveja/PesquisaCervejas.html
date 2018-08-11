@@ -97,12 +97,16 @@
 					<thead>
 						<tr>
 							<th class="table-cervejas-col-foto"></th>
-							<th class="table-cervejas-col-sku">SKU</th>
-							<th class="table-cervejas-col-nome">Nome</th>
+							<th class="table-cervejas-col-sku">
+								<brewer:order page="${pagina}" field="sku" text="SKU"/>
+							</th>
+							<th class="table-cervejas-col-nome">
+								<brewer:order page="${pagina}" field="nome" text="Nome"/>
+							</th>
 							<th class="table-cervejas-col-estilo">Estilo</th>
 							<th class="table-cervejas-col-origem">Origem</th>
 							<th class="table-cervejas-col-valor">Valor</th>
-							<th class="table-cervejas-col-acoes"></th>
+							<th class="table-col-acoes"></th>
 						</tr>
 					</thead>
 					
@@ -117,7 +121,7 @@
 							<td th:text="${cerveja.origem.descricao}">Origem</td>
 							<td class="text-right" th:text="|R$ ${cerveja.valor}|">R$ 10.00</td>
 							<td class="text-center">
-								<a class="btn btn-link btn-xs" title="Editor">
+								<a class="btn btn-link btn-xs" title="Editar">
 									<i class="glyphicon glyphicon-pencil"></i>
 								</a>
 								<a class="btn btn-link btn-xs" title="Excluir">
@@ -126,31 +130,13 @@
 							</td>
 						</tr>
 						<tr th:if="${pagina.vazia}">
-							<td>Nenhuma cerveja encontrada</td>
+							<td colspan="7">Nenhuma cerveja encontrada</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-			
-			<div class="col-sm-12 text-center" th:if="${not pagina.vazia}">
-				<nav>
-					<ul class="pagination pagination-sm" th:with="paginaAtual=${pagina.atual}">
-						<li th:class="${pagina.primeira} ? disabled">
-							<a th:href="${pagina.urlParaPagina(paginaAtual - 1)}" th:remove="${pagina.primeira} ? tag"><span>&laquo;</span></a>
-						</li>
 
-						<th:block th:each="p : ${#numbers.sequence(1, pagina.total)}" th:with="numeroPagina=${p -1}">
-							<li th:class="${paginaAtual == numeroPagina} ? active">
-								<a th:href="${pagina.urlParaPagina(numeroPagina)}">[[${p}]]</a>
-							</li>
-						</th:block>
-
-						<li th:class="${pagina.ultima} ? disabled">
-							<a th:href="${pagina.urlParaPagina(paginaAtual + 1)}" th:remove="${pagina.ultima} ? tag"><span>&raquo;</span></a>
-						</li>
-					</ul>
-				</nav>
-			</div>
+			<brewer:pagination page="${pagina}"/>
 
 		</div>	
 	</section>
