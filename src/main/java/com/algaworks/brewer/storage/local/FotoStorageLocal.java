@@ -26,13 +26,13 @@ public class FotoStorageLocal implements FotoStorage {
 	public FotoStorageLocal() {
 		// Linux e MAC
 		// this.local = getDefault().getPath(System.getenv("HOME"), ".brewerfotos");
-		
+
 		// Windows
 		// this.local = getDefault().getPath(System.getProperty("user.home"),
 		// ".brewerfotos");
 
-		this.local = getDefault().getPath("C:\\Users\\oliveirb\\Downloads\\curso-spring", "brewerfotos");
-		//this.local = getDefault().getPath(System.getenv("HOME"), "Imagens/fotos_curso_spring_framework/brewerfotos");
+		// this.local = getDefault().getPath("C:\\Users\\oliveirb\\Downloads\\curso-spring", "brewerfotos");
+		this.local = getDefault().getPath(System.getenv("HOME"), "Imagens/fotos_curso_spring_framework/brewerfotos");
 		criarPastas();
 	}
 
@@ -78,8 +78,8 @@ public class FotoStorageLocal implements FotoStorage {
 		} catch (IOException e) {
 			throw new RuntimeException("Erro movendo a foto para destino final", e);
 		}
-		
-		//Gerar Thumbnail
+
+		// Gerar Thumbnail
 		try {
 			Thumbnails.of(this.local.resolve(foto).toString()).size(40, 68).toFiles(Rename.PREFIX_DOT_THUMBNAIL);
 		} catch (IOException e) {
@@ -105,7 +105,7 @@ public class FotoStorageLocal implements FotoStorage {
 			throw new RuntimeException("Erro lendo a foto temporária", e);
 		}
 	}
-	
+
 	@Override
 	public byte[] recuperarFoto(String nome) {
 		try {

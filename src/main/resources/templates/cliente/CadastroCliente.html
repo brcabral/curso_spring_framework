@@ -3,7 +3,8 @@
 	xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/LayoutPadrao">
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	layout:decorate="layout/LayoutPadrao">
 		
 <head>
   <title>Cadastro de cliente</title>
@@ -30,28 +31,26 @@
 					<div class="col-lg-4 col-sm-6 form-group">
 						<label for="tipoPessoa">Tipo pessoa</label>
 						<div>
-							<div class="radio radio-inline">
-								<input name="tipoPessoa" type="radio">
-								<label>Física</label>
-							</div>
-
-							<div class="radio radio-inline">
-								<input name="tipoPessoa" type="radio">
-								<label>Jurídica</label>
-							</div>
+							<th:block th:each="tipoPessoa : ${tiposPessoa}">
+								<div class="radio radio-inline">
+									<input type="radio" th:id="|id_${tipoPessoa}|" class="js-radio-tipo-pessoa" name="tipoPessoa"									
+										data:documento="${tipoPessoa.documento}" data:mascara="${tipoPessoa.mascara}">
+									<label class="control-label" th:for="|id_${tipoPessoa}|" th:text="${tipoPessoa.descricao}">Física</label>
+								</div>
+							</th:block>
 						</div>
 					</div>
 					
 					<div class="col-sm-8 form-group">
 						<label for="cpfCnpj">CPF/CPNJ</label>
-						<input class="form-control" id="cpfCnpj" type="text">
+						<input class="form-control" id="cpfCnpj" type="text" disabled>
 					</div>
 				</div>
 				
 				<div class="row">
 					<div class="col-sm-4 form-group">
 						<label for="telefone">Telefone</label>
-						<input class="form-control" id="telefone" type="text">
+						<input class="form-control js-phone-number" id="telefone" type="text">
 					</div>
 					<div class="col-sm-8 form-group">
 						<label for="email">E-mail</label>
@@ -99,5 +98,9 @@
 			</form>
 		</div>
 	</section>
+	
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/cliente.mascara-cpf-cnpj.js}"></script>		
+	</th:block>
 </body>
 </html>
