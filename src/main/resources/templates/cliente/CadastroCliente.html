@@ -76,17 +76,18 @@
 				<div class="row">
 					<div class="col-sm-4 form-group">
 						<label for="cep">CEP</label>
-						<input class="form-control" id="cep" type="text">
+						<input class="form-control js-cep" id="cep" type="text">
 					</div>
 					<div class="col-sm-4 form-group">
-						<label for="estado">Estado</label>
+						<label for="estado">Estado</label>						
 						<select class="form-control" id="estado">
 							<option value="">Selecione o estado</option>
-						</select>
+							<option th:each="estado : ${estados}" th:value="${estado.codigo}" th:text="${estado.nome}">Estados</option>
+						</select>						
 					</div>
 					<div class="col-sm-4 form-group">
 						<label for="cidade">Cidade</label>
-						<select class="form-control" id="cidade">
+						<select class="form-control" id="cidade" data:url="@{/cidades}">
 							<option value="">Selecione a cidade</option>
 						</select>
 					</div>
@@ -101,6 +102,7 @@
 	
 	<th:block layout:fragment="javascript-extra">
 		<script th:src="@{/javascripts/cliente.mascara-cpf-cnpj.js}"></script>		
+		<script th:src="@{/javascripts/cliente.combo-estado-cidade.js}"></script>
 	</th:block>
 </body>
 </html>
