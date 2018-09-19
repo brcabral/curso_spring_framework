@@ -19,15 +19,20 @@ public class CidadesController {
 	@Autowired
 	Cidades cidades;
 
-	@RequestMapping("/cidades/novo")
-	public String novo(Cidade cidade) {
+	@RequestMapping("/nova")
+	public String nova(Cidade cidade) {
 		return "cidade/CadastroCidade";
 	}
 
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<Cidade> pesquisarPorCodigoEstado(
 			@RequestParam(name = "estado", defaultValue = "-1") Long codigoEstado) {
+
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			//
+		}
 		return cidades.findByEstadoCodigo(codigoEstado);
 	}
-
 }
