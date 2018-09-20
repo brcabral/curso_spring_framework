@@ -25,6 +25,7 @@ Brewer.ComboCidade = (function() {
 		this.comboEstado = comboEstado;
 		this.combo = $('#cidade');
 		this.imgLoading = $('.js-img-loading');
+		this.inputHiddenCidadeSelecionada = $('#inputHiddenCidadeSelecionada');
 	}
 
 	ComboCidade.prototype.iniciar = function() {
@@ -34,28 +35,18 @@ Brewer.ComboCidade = (function() {
 		inicializarCidades.call(this, codigoEstado);
 	}
 
-	function onEstadoAlterado(evento, codigoEstado) {
-		$('#inputHiddenCidadeSelecionada').val();
-		inicializarCidades.call(this, codigoEstado);
-	}
-
-	function iniciarRequisicao() {
-		reset.call(this);
-		this.imgLoading.show();
-	}
-
-	function finalizarRequisicao() {
-		this.imgLoading.hide();
-	}
-	
 	function reset() {
 		this.combo.html('<option value="">Selecione a cidade</option>');
 		this.combo.val('');
 		this.combo.attr('disabled', 'disabled');
 	}
-	
-	
-	fuction inicializarCidades(codigoEstado) {
+
+	function onEstadoAlterado(evento, codigoEstado) {
+		this.inputHiddenCidadeSelecionada.val('');
+		inicializarCidades.call(this, codigoEstado);
+	}
+
+	function inicializarCidades(codigoEstado) {
 		if (codigoEstado) {
 			var resposta = $.ajax({
 				url : this.combo.data('url'),
@@ -66,23 +57,33 @@ Brewer.ComboCidade = (function() {
 				},
 				beforeSend : iniciarRequisicao.bind(this),
 				complete : finalizarRequisicao.bind(this)
-			});			
+			});
 			resposta.done(onBuscarCidadesFinalizado.bind(this));
 		} else {
 			reset.call(this);
 		}
 	}
-	
+
+	function iniciarRequisicao() {
+		reset.call(this);
+		this.imgLoading.show();
+	}
+
+	function finalizarRequisicao() {
+		this.imgLoading.hide();
+	}
+
 	function onBuscarCidadesFinalizado(cidades) {
 		var options = [];
 		cidades.forEach(function(cidade) {
-			options.push('<option value="' + cidade.codigo + '">' + cidade.nome + '</option>');
+			options.push('<option value="' + cidade.codigo + '">' + cidade.nome
+					+ '</option>');
 		});
-		
+
 		this.combo.html(options.join(''));
 		this.combo.removeAttr('disabled');
-		
-		var codigoCidadeSelecionada = $('#inputHiddenCidadeSelecionada').val();
+
+		var codigoCidadeSelecionada = this.inputHiddenCidadeSelecionada.val();
 		if (codigoCidadeSelecionada) {
 			this.combo.val(codigoCidadeSelecionada);
 		}
