@@ -98,7 +98,6 @@
 
 .table-cervejas-col-nome {
 	/* nome */
-	
 }
 
 .table-cervejas-col-estilo {
@@ -117,4 +116,24 @@
 /* Colunas - Pesquisa de Estilos */
 .table-estilos-col-codigo {
 	width: 80px;
+}
+
+/* Colunas - Pesquisa de Clientes */
+.table-clientes-col-nome {
+	/* nome */
+}
+
+.table-clientes-col-tipo-pessoa {
+	width: 120px;
+	text-align: center;
+}
+
+.table-clientes-col-cpf-cnpj {
+	width: 140px;
+	text-align: right;
+}
+
+.table-clientes-col-telefone {
+	width: 140px;
+	text-align: right;
 }

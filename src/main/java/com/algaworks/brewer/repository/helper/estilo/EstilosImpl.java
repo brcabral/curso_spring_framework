@@ -1,4 +1,4 @@
-package com.algaworks.brewer.repository.filter;
+package com.algaworks.brewer.repository.helper.estilo;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.algaworks.brewer.model.Estilo;
-import com.algaworks.brewer.repository.helper.cervejas.EstilosQueries;
+import com.algaworks.brewer.repository.filter.EstiloFilter;
 import com.algaworks.brewer.repository.paginacao.PaginacaoUtil;
 
 public class EstilosImpl implements EstilosQueries {
@@ -24,7 +24,7 @@ public class EstilosImpl implements EstilosQueries {
 	private EntityManager manager;
 
 	@Autowired
-	PaginacaoUtil paginacaoUtil;
+	private PaginacaoUtil paginacaoUtil;
 
 	@SuppressWarnings("unchecked")
 	@Override
