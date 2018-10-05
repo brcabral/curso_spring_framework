@@ -11,7 +11,6 @@ import com.algaworks.brewer.service.event.cerveja.CervejaSalvaEvent;
 
 @Service
 public class CadastroCervejaService {
-
 	@Autowired
 	private Cervejas cervejas;
 

@@ -12,16 +12,17 @@ import com.algaworks.brewer.service.exception.CpfCnpjJaCadastradoException;
 
 @Service
 public class CadastroClienteService {
-
 	@Autowired
 	private Clientes clientes;
 
 	@Transactional
 	public void salvar(Cliente cliente) {
 		Optional<Cliente> clienteExistente = clientes.findByCpfCnpj(cliente.getCpfCnpjSemFormatacao());
+
 		if (clienteExistente.isPresent()) {
 			throw new CpfCnpjJaCadastradoException("CPF/CNPJ já cadastrado!");
 		}
+
 		clientes.save(cliente);
 	}
 }
