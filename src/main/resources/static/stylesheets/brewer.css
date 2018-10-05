@@ -98,6 +98,7 @@
 
 .table-cervejas-col-nome {
 	/* nome */
+	
 }
 
 .table-cervejas-col-estilo {
@@ -121,6 +122,7 @@
 /* Colunas - Pesquisa de Clientes */
 .table-clientes-col-nome {
 	/* nome */
+	
 }
 
 .table-clientes-col-tipo-pessoa {
@@ -134,6 +136,22 @@
 }
 
 .table-clientes-col-telefone {
+	width: 140px;
+	text-align: right;
+}
+
+.table-clientes-col-cidade-estado {
+	width: 140px;
+	text-align: right;
+}
+
+/* Colunas - Pesquisa de cidades */
+.table-cidades-col-nome {
+	/* nome */
+	
+}
+
+.table-cidades-col-estado {
 	width: 140px;
 	text-align: right;
 }

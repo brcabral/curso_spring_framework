@@ -7,5 +7,5 @@ import com.algaworks.brewer.model.Estado;
 
 @Repository
 public interface Estados extends JpaRepository<Estado, Long> {
-
+	//
 }

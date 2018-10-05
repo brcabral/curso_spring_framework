@@ -33,15 +33,15 @@ public class Cerveja {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
-	@NotBlank(message = "O SKU é obrigatório.")
+	@NotBlank(message = "O SKU é obrigatório")
 	@SKU
 	private String sku;
 
-	@NotBlank(message = "O nome é obrigatório.")
+	@NotBlank(message = "O nome é obrigatório")
 	private String nome;
 
-	@NotBlank(message = "A descrição é obrigatória.")
-	@Size(max = 50, message = "A descrição deve ter no máximo 50 caracteres.")
+	@NotBlank(message = "A descrição é obrigatória")
+	@Size(max = 50, message = "A descrição deve ter no máximo 50 caracteres")
 	private String descricao;
 
 	@NotNull(message = "O valor é obrigatório")
@@ -190,7 +190,7 @@ public class Cerveja {
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
-	
+
 	public String getFotoOrMock() {
 		return !StringUtils.isEmpty(foto) ? foto : "cerveja-mock.png";
 	}

@@ -4,13 +4,26 @@ import com.algaworks.brewer.model.validation.group.CnpjGroup;
 import com.algaworks.brewer.model.validation.group.CpfGroup;
 
 public enum TipoPessoa {
-	FISICA("Física", "CPF", "000.000.000-00", CpfGroup.class),
-	JURIDICA("Jurídica", "CNPJ", "00.000.000/0000-00", CnpjGroup.class);
+	FISICA("Física", "CPF", "000.000.000-00", CpfGroup.class) {
+		@Override
+		public String formatar(String cpfCnpj) {
+			return cpfCnpj.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
+		}
+	},
+	
+	JURIDICA("Jurídica", "CNPJ", "00.000.000/0000-00", CnpjGroup.class) {
+		@Override
+		public String formatar(String cpfCnpj) {
+			return cpfCnpj.replaceAll("(\\d{2})(\\d{3})(\\d{3})(\\\\d{4})(\\d{2})", "$1.$2.$3/$4-$5");
+		}
+	};
 
 	private String descricao;
 	private String documento;
 	private String mascara;
 	private Class<?> grupo;
+	
+	public abstract String formatar(String cpfCnpj);
 
 	private TipoPessoa(String descricao, String documento, String mascara, Class<?> grupo) {
 		this.descricao = descricao;
