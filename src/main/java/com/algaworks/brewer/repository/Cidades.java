@@ -10,6 +10,6 @@ import com.algaworks.brewer.model.Estado;
 import com.algaworks.brewer.repository.helper.cidade.CidadesQuery;
 
 public interface Cidades extends JpaRepository<Cidade, Long>, CidadesQuery {
-	public List<Cidade> findByEstadoCodigo(Long codigoEstado);
+	public List<Cidade> findByEstadoCodigoOrderByNomeAsc(Long codigoEstado);
 	public Optional<Cidade> findByNomeAndEstado(String nome, Estado estado);
 }

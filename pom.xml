@@ -61,6 +61,8 @@
 		<!-- https://github.com/mxab/thymeleaf-extras-data-attribute -->
 		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
 
+		<!-- Cache - Guava -->
+		<guava.version>19.0</guava.version>
 	</properties>
 
 	<build>
@@ -104,6 +106,12 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- Servlet API -->
@@ -112,12 +120,6 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>${servlet.version}</version>
 			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!-- Thymeleaf -->
@@ -224,6 +226,21 @@
 			<groupId>com.github.mxab.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-data-attribute</artifactId>
 			<version>${thymeleaf-extras-data-attribute.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Cache - Guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Spring Context Support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
 			<scope>compile</scope>
 		</dependency>
 
