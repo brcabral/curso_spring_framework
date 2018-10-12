@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-br"
-	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:data="http://www.thymeleaf.org/extras/data"
 	xmlns:brewer="http://brewer.algaworks.com"
 	layout:decorate="layout/LayoutPadrao">
-		
+
 <head>
   <title>Cadastro de cliente</title>
 </head>
 <body>
-	<section layout:fragment="conteudo">	
+	<section layout:fragment="conteudo">
 		<div class="page-header">
 			<div class="container-fluid">
 				<div class="row">
@@ -24,15 +24,15 @@
 							<a class="btn btn-default" th:href="@{/clientes}">
 								<i class="glyphicon glyphicon-plus-sign"></i>
 								<span class="hidden-xs hidden-sm">Pesquisar cliente</span>
-							</a>					
+							</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="container-fluid">
-			
+
 			<form method="post" th:object="${cliente}" th:action="@{/clientes/novo}">
 
 				<brewer:message/>
@@ -43,7 +43,7 @@
 						<input class="form-control" id="nome" type="text" th:field="*{nome}">
 					</div>
 				</div>
-				
+
 				<div class="row">
 					<div class="col-lg-4 col-sm-6 form-group bw-required" brewer:classforerror="tipoPessoa">
 						<label for="tipoPessoa" class="control-label">Tipo pessoa</label>
@@ -57,13 +57,13 @@
 							</th:block>
 						</div>
 					</div>
-					
+
 					<div class="col-sm-8 form-group">
 						<label for="cpfCnpj">CPF/CPNJ</label>
 						<input class="form-control" id="cpfCnpj" type="text" th:field="*{cpfCnpj}" disabled>
 					</div>
 				</div>
-				
+
 				<div class="row">
 					<div class="col-sm-4 form-group">
 						<label for="telefone">Telefone</label>
@@ -74,7 +74,7 @@
 						<input class="form-control" id="email" type="text"  th:field="*{email}">
 					</div>
 				</div>
-				
+
 				<div class="row">
 					<div class="col-sm-4 form-group">
 						<label for="logradouro">Logradouro</label>
@@ -87,45 +87,45 @@
 					<div class="col-sm-4 form-group">
 						<label for="complemento">Complemento</label>
 						<input class="form-control" id="complemento" type="text" th:field="*{endereco.complemento}">
-					</div>					
+					</div>
 				</div>
-				
+
 				<div class="row">
 					<div class="col-sm-4 form-group">
 						<label for="cep">CEP</label>
 						<input class="form-control js-cep" id="cep" type="text" th:field="*{endereco.cep}">
 					</div>
 					<div class="col-sm-4 form-group">
-						<label for="estado">Estado</label>						
+						<label for="estado">Estado</label>
 						<select class="form-control" id="estado" th:field="*{endereco.estado}">
 							<option value="">Selecione o estado</option>
 							<option th:each="estado : ${estados}" th:value="${estado.codigo}" th:text="${estado.nome}">Estados</option>
-						</select>						
+						</select>
 					</div>
 					<div class="col-sm-4 form-group">
 						<label for="cidade">Cidade</label>
 						<div class="bw-field-action">
 							<input type="hidden" id="inputHiddenCidadeSelecionada" th:value="*{endereco.cidade} != null ? *{endereco.cidade.codigo}"/>
-							<select class="form-control" id="cidade" data:url="@{/cidades}" th:field="*{endereco.cidade}">								
+							<select class="form-control" id="cidade" data:url="@{/cidades}" th:field="*{endereco.cidade}">
 							</select>
 
 							<div class="bw-field-action__icon js-img-loading" style="display: none">
 								<img th:src="@{/images/mini-loading.gif}">
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
-				
+
 				<div class="form-group">
 					<button class="btn btn-primary" type="submit">Salvar</button>
 				</div>
 			</form>
 		</div>
 	</section>
-	
+
 	<th:block layout:fragment="javascript-extra">
-		<script th:src="@{/javascripts/cliente.mascara-cpf-cnpj.js}"></script>		
+		<script th:src="@{/javascripts/cliente.mascara-cpf-cnpj.js}"></script>
 		<script th:src="@{/javascripts/cliente.combo-estado-cidade.js}"></script>
 	</th:block>
 </body>
