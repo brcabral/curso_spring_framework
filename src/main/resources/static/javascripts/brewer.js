@@ -61,6 +61,23 @@ Brewer.MaskCep = (function() {
 	return MaskCep;
 }());
 
+Brewer.MaskDate = (function() {
+	function MaskDate() {
+		this.inputDate = $('.js-date');
+	}
+
+	MaskDate.prototype.enable = function() {
+		this.inputDate.mask("00/00/0000");
+		this.inputDate.datepicker({
+			orientation : 'bottom',
+			language : 'pt-BR',
+			autoclose : true
+		});
+	}
+
+	return MaskDate;
+}());
+
 $(function() {
 	var maskMoney = new Brewer.MaskMoney();
 	maskMoney.enable();
@@ -70,4 +87,7 @@ $(function() {
 
 	var maskCep = new Brewer.MaskCep();
 	maskCep.enable();
+
+	var maskDate = new Brewer.MaskDate();
+	maskDate.enable();
 });
