@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.algaworks.brewer.security.AppUserDetailsService;
 
@@ -44,9 +45,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.formLogin()
 				.loginPage("/login").permitAll()
 				.and()
-			.exceptionHandling().accessDeniedPage("/403")
+			.logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.and()
-			.csrf().disable();
+			.exceptionHandling()
+				.accessDeniedPage("/403")
+				.and()
+			.sessionManagement()
+				.maximumSessions(1)  // Permitir apenas 1 conexão com o mesmo login
+				.expiredUrl("/login")
+				.and()
+				.invalidSessionUrl("/login");  // Em caso de fazer uma request via post o usuário será redirecionado para a página de login 
 	}
 
 	@Bean
