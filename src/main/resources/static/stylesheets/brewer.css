@@ -156,6 +156,25 @@
 	text-align: right;
 }
 
+/* Colunas - Pesquisa de usuarios */
+.table-usuarios-col-nome {
+	/* nome */
+	
+}
+
+.table-usuarios-col-email {
+	/* e-mail */
+}
+
+.table-usuarios-col-grupo {
+	/* grupo */
+}
+
+.table-usuarios-col-status {
+	width: 120px;
+	text-align: left;
+}
+
 /*
 ##################################
 #  CUSTOMIZAÇÃO DE COMPONENTES   #
