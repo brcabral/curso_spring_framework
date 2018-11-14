@@ -67,7 +67,7 @@ Brewer.MaskDate = (function() {
 	}
 
 	MaskDate.prototype.enable = function() {
-		this.inputDate.mask("00/00/0000");
+		this.inputDate.mask('00/00/0000');
 		this.inputDate.datepicker({
 			orientation : 'bottom',
 			language : 'pt-BR',
