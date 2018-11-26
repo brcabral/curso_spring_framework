@@ -2,7 +2,7 @@ Brewer = Brewer || {};
 
 Brewer.MultiSelecao = (function() {
 	function MultiSelecao() {
-		this.statusBtn = $('.js-satus-btn');
+		this.statusBtn = $('.js-status-btn');
 		this.selecaoCheckbox = $('.js-selecao');
 		this.selecaoTodosCheckbox = $('.js-selecao-todos');
 	}
@@ -30,7 +30,7 @@ Brewer.MultiSelecao = (function() {
 					codigos : codigos,
 					status : status
 				},
-				sucess : function() {
+				success : function() {
 					window.location.reload();
 				}
 			});
@@ -51,8 +51,7 @@ Brewer.MultiSelecao = (function() {
 	}
 
 	function statusBotaoAcao(ativar) {
-		ativar ? this.statusBtn.removeClass('disabled') : this.statusBtn
-				.addClass('disabled');
+		ativar ? this.statusBtn.removeClass('disabled') : this.statusBtn.addClass('disabled');
 	}
 
 	return MultiSelecao;
