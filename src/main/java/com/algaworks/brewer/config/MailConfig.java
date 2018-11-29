@@ -4,15 +4,19 @@ import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
+import com.algaworks.brewer.mail.Mailer;
+
 @Configuration
+@ComponentScan(basePackageClasses = Mailer.class)
 @PropertySource({ "classpath:env/mail-${ambiente:local}.properties" })
-@PropertySource(value = { "file://${HOME}/.brewer-mail.properties" }, ignoreResourceNotFound = true)
+@PropertySource(value = { "file://${HOME}/workspace/brewer/config/brewer-mail.properties" }, ignoreResourceNotFound = true)
 @PropertySource(value = { "file:\\C:\\Users\\oliveirb\\Downloads\\curso-spring\\config\\brewer-mail.properties" }, ignoreResourceNotFound = true)
 public class MailConfig {
 	@Autowired
@@ -23,12 +27,8 @@ public class MailConfig {
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 		mailSender.setHost("smtp.sendgrid.net");
 		mailSender.setPort(587);
-		mailSender.setUsername(env.getProperty("email.username"));
-		mailSender.setUsername(env.getProperty("password"));
-		mailSender.setPassword("senha");
-		
-		System.out.println(">>> usuario: " + env.getProperty("username"));
-		System.out.println(">>> senha: " + env.getProperty("password"));
+		mailSender.setUsername(env.getProperty("username"));
+		mailSender.setPassword(env.getProperty("password"));
 
 		Properties props = new Properties();
 		props.put("mail.transport.protocol", "smtp");
