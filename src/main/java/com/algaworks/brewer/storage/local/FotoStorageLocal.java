@@ -18,8 +18,9 @@ import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.name.Rename;
 
 public class FotoStorageLocal implements FotoStorage {
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(FotoStorageLocal.class);
+	private static final String THUMBNAIL_PREFIX = "thumbnail.";
+
 	private Path local;
 	private Path localTemporario;
 
@@ -33,7 +34,7 @@ public class FotoStorageLocal implements FotoStorage {
 
 		// this.local = getDefault().getPath(System.getProperty("user.home"),
 		// "Downloads\\curso-spring\\brewerfotos");
-		this.local = getDefault().getPath(System.getenv("HOME"), "Imagens/fotos_curso_spring_framework/brewerfotos");
+		this.local = getDefault().getPath(System.getenv("HOME"), "workspace/brewer/fotos/brewerfotos");
 		criarPastas();
 	}
 
@@ -118,6 +119,17 @@ public class FotoStorageLocal implements FotoStorage {
 
 	@Override
 	public byte[] recuperarThumbnail(String fotoCerveja) {
-		return recuperarFoto("thumbnail." + fotoCerveja);
+		return recuperarFoto(THUMBNAIL_PREFIX + fotoCerveja);
+	}
+
+	@Override
+	public void excluir(String foto) {
+		try {
+			Files.deleteIfExists(this.local.resolve(foto));
+			Files.deleteIfExists(this.local.resolve(THUMBNAIL_PREFIX + foto));
+		} catch (IOException e) {
+			LOGGER.warn(String.format("Erro ao excluir a foto '%s'. Mensagem de erro: %s", foto, e.getMessage()));
+		}
+
 	}
 }
