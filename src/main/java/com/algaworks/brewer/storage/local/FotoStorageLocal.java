@@ -29,12 +29,10 @@ public class FotoStorageLocal implements FotoStorage {
 		// this.local = getDefault().getPath(System.getenv("HOME"), ".brewerfotos");
 
 		// Windows
-		// this.local = getDefault().getPath(System.getProperty("user.home"),
-		// ".brewerfotos");
+		// this.local = getDefault().getPath(System.getProperty("user.home"), ".brewerfotos");
 
-		// this.local = getDefault().getPath(System.getProperty("user.home"),
-		// "Downloads\\curso-spring\\brewerfotos");
-		this.local = getDefault().getPath(System.getenv("HOME"), "workspace/brewer/fotos/brewerfotos");
+		this.local = getDefault().getPath(System.getProperty("user.home"), "Downloads\\curso-spring\\brewerfotos");
+		// this.local = getDefault().getPath(System.getenv("HOME"), "workspace/brewer/fotos/brewerfotos");
 		criarPastas();
 	}
 

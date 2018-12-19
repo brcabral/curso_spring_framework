@@ -19,7 +19,8 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-xs-10">
-						<h1>Cadastro de venda</h1>
+						<h1 th:if="${venda.nova}">Cadastro de venda</h1>
+						<h1 th:unless="${venda.nova}">Editar venda nº [[${venda.codigo}]]</h1>
 					</div>
 					
 					<div class="col-sm-2">
@@ -35,10 +36,12 @@
 		</div>
 		
 		<div class="container-fluid">
-			<form method="POST" th:action="@{/vendas/nova}" th:object="${venda}" class="js-formulario-principal">			
+			<form method="POST" th:action="@{/vendas/nova}" th:object="${venda}" class="js-formulario-principal">
 				<brewer:message />
 
 				<input type="hidden" id="uuid" th:field="*{uuid}" />
+				<input type="hidden" th:field="*{codigo}" />
+				<input type="hidden" th:field="*{usuario}" />
 
 				<div class="row">
 					<div class="col-sm-4">
@@ -56,18 +59,20 @@
 							<div class="aw-box__icon">
 								<i class="fa fa-tag fa-3x"></i>
 							</div>
-							<div class="aw-box__value">Orçamento</div>
+							<div class="aw-box__value" th:text="${venda.status.descricao}">Orçamento</div>
 							<div class="aw-box__title">Status</div>
 						</div>
 					</div>
-					
+
 					<div class="col-sm-4">
 						<div class="aw-box">
 							<div class="aw-box__icon">
 								<i class="fa fa-calendar fa-3x"></i>
 							</div>
 							<div class="aw-box__value">
-								<span class="js-tooltip">Hoje</span>
+								<span class="js-tooltip" th:if="${venda.diasCriacao == 0}">Hoje</span>
+								<span class="js-tooltip" th:if="${venda.diasCriacao == 1}">Há 1 dia</span>
+								<span class="js-tooltip" th:if="${venda.diasCriacao > 1}">Há [[${venda.diasCriacao}]] dias</span>
 							</div>
 							<div class="aw-box__title">Criação</div>
 						</div>
@@ -170,7 +175,7 @@
 							</ul>
 						</div>
 						
-						<button class="btn btn-danger">Cancelar</button>
+						<button class="btn btn-danger js-submit-btn" data:acao="cancelar">Cancelar</button>
 					</div>
 				</div>
 			</form>

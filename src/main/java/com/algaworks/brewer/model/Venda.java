@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +23,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 @Entity
+@DynamicUpdate
 @Table(name = "venda")
 public class Venda {
 	@Id
@@ -57,7 +61,7 @@ public class Venda {
 	@Enumerated(EnumType.STRING)
 	private StatusVenda status = StatusVenda.ORCAMENTO;
 
-	@OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ItemVenda> itens = new ArrayList<>();
 
 	@Transient
@@ -193,6 +197,11 @@ public class Venda {
 	public BigDecimal getValorTotalItens() {
 		return getItens().stream().map(ItemVenda::getValorTotal).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
 
+	}
+
+	public Long getDiasCriacao() {
+		LocalDate inicio = dataCriacao != null ? dataCriacao.toLocalDate() : LocalDate.now();
+		return ChronoUnit.DAYS.between(inicio, LocalDate.now());
 	}
 
 	public void calcularValorTotal() {
