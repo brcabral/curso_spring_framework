@@ -19,6 +19,10 @@ public class CadastroVendaService {
 
 	@Transactional
 	public Venda salvar(Venda venda) {
+		if (venda.isSalvarProibido()) {
+			throw new RuntimeException("Usuário tentando salvar uma venda proibida");
+		}
+
 		if (venda.isNova()) {
 			venda.setDataCriacao(LocalDateTime.now());
 		} else {

@@ -1,6 +1,5 @@
 package com.algaworks.brewer.controller;
 
-import java.nio.file.AccessDeniedException;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -164,7 +164,7 @@ public class VendasController {
 
 	@GetMapping
 	public ModelAndView pesquisar(VendaFilter vendaFilter, BindingResult result,
-			@PageableDefault(size = 3) Pageable pageable, HttpServletRequest httpServletRequest) {
+			@PageableDefault(size = 5) Pageable pageable, HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("venda/PesquisaVendas");
 		mv.addObject("statusVenda", StatusVenda.values());
 

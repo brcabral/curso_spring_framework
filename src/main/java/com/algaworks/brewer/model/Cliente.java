@@ -56,7 +56,7 @@ public class Cliente implements Serializable {
 	@Email(message = "E-mail inválido")
 	@NotBlank(message = "E-mail é obrigatório")
 	private String email;
-	
+
 	@Embedded
 	@JsonIgnore
 	private Endereco endereco;
@@ -130,6 +130,10 @@ public class Cliente implements Serializable {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public boolean isNovo() {
+		return codigo == null;
 	}
 
 	@Override

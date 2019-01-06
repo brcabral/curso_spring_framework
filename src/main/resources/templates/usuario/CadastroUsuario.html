@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br"
-	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:brewer="http://brewer.algaworks.com"
@@ -9,7 +9,7 @@
 <head>
 	<title>Cadastro de usuário</title>
 
-	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}">	
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}">
 </head>
 <body>
 	<section layout:fragment="conteudo">
@@ -26,7 +26,7 @@
 							<a class="btn btn-default" th:href="@{/usuarios}">
 								<i class="glyphicon glyphicon-plus-sign"></i>
 								<span class="hidden-xs hidden-sm">Pesquisar usuário</span>
-							</a>					
+							</a>
 						</div>
 					</div>
 				</div>
@@ -34,12 +34,12 @@
 		</div>
 
 		<div class="container-fluid">
-			
+
 			<form method="post" th:object="${usuario}"
 				th:action="${usuario.novo} ? @{/usuarios/novo} : @{/usuarios/{codigo}(codigo=${usuario.codigo})}">
-			
+
 				<brewer:message/>
-				
+
 				<input type="hidden" th:field="*{codigo}" />
 
 				<div class="row">
@@ -82,9 +82,9 @@
 				<div class="row">
 					<div class="col-sm-6 form-group bw-required" brewer:classforerror="grupos">
 						<label class="control-label">Grupos</label>
-						<div>					
+						<div>
 							<th:block th:each="grupo : ${grupos}">
-								<div class="checkbox checkbox-inline">							
+								<div class="checkbox checkbox-inline">
 									<input type="checkbox" th:value="${grupo.codigo}" th:field=*{grupos} />
 									<label th:for="${#ids.prev('grupos')}" th:text="${grupo.nome}">Administrador</label>
 								</div>
@@ -95,15 +95,15 @@
 
 				<div class="form-group">
 					<button class="btn btn-primary" type="submit">Salvar</button>
-				</div>			
+				</div>
 			</form>
 		</div>
 	</section>
 	<th:block layout:fragment="javascript-extra">
-		<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>		
+		<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
 		<script>
 			$('.js-status').bootstrapSwitch();
 		</script>
-	</th:block>	
+	</th:block>
 </body>
 </html>

@@ -199,11 +199,6 @@ public class Venda {
 
 	}
 
-	public Long getDiasCriacao() {
-		LocalDate inicio = dataCriacao != null ? dataCriacao.toLocalDate() : LocalDate.now();
-		return ChronoUnit.DAYS.between(inicio, LocalDate.now());
-	}
-
 	public void calcularValorTotal() {
 		this.valorTotal = calcularValorTotal(getValorTotalItens(), getValorFrete(), getValorDesconto());
 	}
@@ -212,6 +207,19 @@ public class Venda {
 		BigDecimal valorTotal = valorTotalItens.add(Optional.ofNullable(valorFrete).orElse(BigDecimal.ZERO))
 				.subtract(Optional.ofNullable(valorDesconto).orElse(BigDecimal.ZERO));
 		return valorTotal;
+	}
+
+	public Long getDiasCriacao() {
+		LocalDate inicio = dataCriacao != null ? dataCriacao.toLocalDate() : LocalDate.now();
+		return ChronoUnit.DAYS.between(inicio, LocalDate.now());
+	}
+
+	public boolean isSalvarPermitido() {
+		return !status.equals(StatusVenda.CANCELADA);
+	}
+
+	public boolean isSalvarProibido() {
+		return !isSalvarPermitido();
 	}
 
 	@Override

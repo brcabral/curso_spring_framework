@@ -31,8 +31,8 @@ public class FotoStorageLocal implements FotoStorage {
 		// Windows
 		// this.local = getDefault().getPath(System.getProperty("user.home"), ".brewerfotos");
 
-		this.local = getDefault().getPath(System.getProperty("user.home"), "Downloads\\curso-spring\\brewerfotos");
-		// this.local = getDefault().getPath(System.getenv("HOME"), "workspace/brewer/fotos/brewerfotos");
+		// this.local = getDefault().getPath(System.getProperty("user.home"), "Downloads\\curso-spring\\brewerfotos");
+		this.local = getDefault().getPath(System.getenv("HOME"), "workspace/brewer/fotos/brewerfotos");
 		criarPastas();
 	}
 
@@ -128,6 +128,5 @@ public class FotoStorageLocal implements FotoStorage {
 		} catch (IOException e) {
 			LOGGER.warn(String.format("Erro ao excluir a foto '%s'. Mensagem de erro: %s", foto, e.getMessage()));
 		}
-
 	}
 }

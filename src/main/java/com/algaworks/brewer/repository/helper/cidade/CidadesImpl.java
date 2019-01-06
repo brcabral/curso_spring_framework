@@ -59,4 +59,13 @@ public class CidadesImpl implements CidadesQuery {
 		return (Long) criteria.uniqueResult();
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public Cidade buscarComEstado(Long codigo) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cidade.class);
+		criteria.createAlias("estado", "e", JoinType.INNER_JOIN);
+		criteria.add(Restrictions.eq("codigo", codigo));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		return (Cidade) criteria.uniqueResult();
+	}
 }

@@ -88,7 +88,7 @@
 								placeholder="Clique na lupa para pesquisar o cliente" />
 							<span class="input-group-btn">
 								<button class="btn btn-default js-tooltip" type="button" title="Pesquisa avançada"
-									data-toggle="modal" data-target="#pesquisaRapidaClientes">
+									data-toggle="modal" data-target="#pesquisaRapidaClientes" th:disabled="${venda.salvarProibido}">
 									<i class="glyphicon glyphicon-search"></i>
 								</button>
 							</span>
@@ -100,7 +100,7 @@
 						<div class="input-group">
 							<div class="input-group-addon">R$</div>
 								<input id="valorFrete" type="text" maxlength="14" class="form-control js-decimal"
-									th:field="*{valorFrete}" data:valor="${valorFrete}" />
+									th:field="*{valorFrete}" data:valor="${valorFrete}" th:disabled="${venda.salvarProibido}" />
 						</div>
 					</div>
 					
@@ -109,7 +109,7 @@
 						<div class="input-group">
 							<div class="input-group-addon">R$</div>
 							<input id="valorDesconto" type="text" maxlength="14" class="form-control js-decimal"
-								th:field="*{valorDesconto}" data:valor="${valorDesconto}" />
+								th:field="*{valorDesconto}" data:valor="${valorDesconto}" th:disabled="${venda.salvarProibido}" />
 						</div>
 					</div>					
 				</div>
@@ -129,7 +129,7 @@
 							<div class="form-group col-lg-12">
 								<input id="cerveja" type="text" class="form-control js-sku-nome-cerveja-input"
 									placeholder="Pesquise e adicione a cerveja pelo SKU ou nome" autofocus="autofocus" 
-									data:url="@{/cervejas}" />
+									data:url="@{/cervejas}" th:disabled="${venda.salvarProibido}" />
 							</div>
 						</div>
 						
@@ -142,12 +142,14 @@
 						<div class="row">
 							<div class="form-group col-sm-3" brewer:classforerror="dataEntrega">
 								<label class="control-label" for="dataEntrega">Data da entrega</label>
-								<input id="dataEntrega" type="text" class="form-control" th:field="*{dataEntrega}" />
+								<input id="dataEntrega" type="text" class="form-control" th:field="*{dataEntrega}"
+								th:disabled="${venda.salvarProibido}" />
 							</div>
 							
 							<div class="form-group col-sm-3">
 								<label class="control-label" for="horarioEntrega">Horário de entrega</label>
-								<input id="horarioEntrega" type="text" class="form-control" th:field="*{horarioEntrega}" />
+								<input id="horarioEntrega" type="text" class="form-control" th:field="*{horarioEntrega}"
+								th:disabled="${venda.salvarProibido}" />
 							</div>							
 						</div>
 						
@@ -155,13 +157,13 @@
 							<div class="form-group col-sm-12">
 								<textarea id="dataEntrega" class="form-control" rows="5"
 									placeholder="Alguma observação para o entregador desse pedido?"
-									th:field="*{observacao}"></textarea>
+									th:field="*{observacao}" th:disabled="${venda.salvarProibido}"></textarea>
 							</div>
 						</div>
 					</div>
 				</div>
 				
-				<div class="row" style="clear: both">
+				<div class="row" style="clear: both" th:if="${venda.salvarPermitido}">
 					<div class="col-lg-12">
 						<div class="btn-group">
 							<button type="submit" class="btn btn-primary js-submit-btn" data:acao="salvar">Salvar</button>
@@ -175,7 +177,8 @@
 							</ul>
 						</div>
 						
-						<button class="btn btn-danger js-submit-btn" data:acao="cancelar">Cancelar</button>
+						<button class="btn btn-danger js-submit-btn" data:acao="cancelar"
+							th:unless="${venda.nova}" >Cancelar</button>
 					</div>
 				</div>
 			</form>
