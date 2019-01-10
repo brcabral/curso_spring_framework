@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -30,6 +31,7 @@ import com.algaworks.brewer.dto.VendaMes;
 import com.algaworks.brewer.dto.VendaOrigem;
 import com.algaworks.brewer.mail.Mailer;
 import com.algaworks.brewer.model.Cerveja;
+import com.algaworks.brewer.model.ItemVenda;
 import com.algaworks.brewer.model.StatusVenda;
 import com.algaworks.brewer.model.Venda;
 import com.algaworks.brewer.repository.Cervejas;
@@ -168,13 +170,46 @@ public class VendasController {
 
 	@GetMapping
 	public ModelAndView pesquisar(VendaFilter vendaFilter, BindingResult result,
-			@PageableDefault(size = 3) Pageable pageable, HttpServletRequest httpServletRequest) {
+			@PageableDefault(size = 5) Pageable pageable, HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("venda/PesquisaVendas");
 		mv.addObject("statusVenda", StatusVenda.values());
 
 		PageWrapper<Venda> paginaWapper = new PageWrapper<>(vendas.filtrar(vendaFilter, pageable), httpServletRequest);
 		mv.addObject("pagina", paginaWapper);
 		return mv;
+	}
+
+	@GetMapping("/{codigo}")
+	public ModelAndView editar(@PathVariable Long codigo) {
+		Venda venda = vendas.buscarComItens(codigo);
+
+		setUuid(venda);
+		for (ItemVenda item : venda.getItens()) {
+			tabelaItens.adicionarItem(venda.getUuid(), item.getCerveja(), item.getQuantidade());
+		}
+
+		ModelAndView mv = nova(venda);
+		mv.addObject(venda);
+		return mv;
+	}
+
+	private void setUuid(Venda venda) {
+		if (StringUtils.isEmpty(venda.getUuid())) {
+			venda.setUuid(UUID.randomUUID().toString());
+		}
+	}
+
+	@PostMapping(value = "/nova", params = "cancelar")
+	public ModelAndView cancelar(Venda venda, BindingResult result, RedirectAttributes attributes,
+			@AuthenticationPrincipal UsuarioSistema usuarioSistema) {
+		try {
+			cadastroVendaService.cancelar(venda);
+		} catch (AccessDeniedException e) {
+			return new ModelAndView("/403");
+		}
+
+		attributes.addFlashAttribute("mensagem", "Venda cancelada com sucesso");
+		return new ModelAndView("redirect:/vendas/" + venda.getCodigo());
 	}
 
 	@GetMapping("/totalPorMes")
