@@ -31,9 +31,8 @@ public class FotoStorageLocal implements FotoStorage {
 		// this.local = getDefault().getPath(System.getProperty("user.home"),
 		// ".brewerfotos");
 
-		// this.local = getDefault().getPath(System.getProperty("user.home"),
-		// "Downloads\\curso-spring\\brewerfotos");
-		this.local = getDefault().getPath(System.getenv("HOME"), "Imagens/fotos_curso_spring_framework/brewerfotos");
+		 this.local = getDefault().getPath(System.getProperty("user.home"), "Downloads\\curso-spring\\brewerfotos");
+		//this.local = getDefault().getPath(System.getenv("HOME"), "Imagens/fotos_curso_spring_framework/brewerfotos");
 		criarPastas();
 	}
 

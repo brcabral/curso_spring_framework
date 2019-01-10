@@ -4,17 +4,22 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.algaworks.brewer.model.StatusVenda;
 import com.algaworks.brewer.model.Venda;
 import com.algaworks.brewer.repository.Vendas;
+import com.algaworks.brewer.service.event.venda.VendaEvent;
 
 @Service
 public class CadastroVendaService {
 	@Autowired
 	private Vendas vendas;
+
+	@Autowired
+	private ApplicationEventPublisher publisher;
 
 	@Transactional
 	public Venda salvar(Venda venda) {
@@ -34,5 +39,7 @@ public class CadastroVendaService {
 	public void emitir(Venda venda) {
 		venda.setStatus(StatusVenda.EMITIDA);
 		salvar(venda);
+
+		publisher.publishEvent(new VendaEvent(venda));
 	}
 }
