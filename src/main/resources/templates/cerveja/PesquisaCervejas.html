@@ -4,7 +4,7 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:brewer="http://brewer.algaworks.com"
-	layout:decorate="layout/LayoutPadrao"
+	layout:decorate="~{layout/LayoutPadrao}"
 	xmlns:data="http://www.thymeleaf.org/extras/data">
 
 <head>
@@ -120,7 +120,7 @@
 							<td th:text="${cerveja.nome}">Nome</td>
 							<td th:text="${cerveja.estilo.nome}">Estilo</td>
 							<td th:text="${cerveja.origem.descricao}">Origem</td>
-							<td class="text-right" th:text="|R$ ${cerveja.valor}|">R$ 10.00</td>
+							<td class="text-right" th:text="|R$ ${{cerveja.valor}}|">R$ 10.00</td>
 							<td class="text-center">
 								<a class="btn btn-link btn-xs js-tooltip" title="Editar"
 									th:href="@{/cervejas/{codigo}(codigo=${cerveja.codigo})}">
